@@ -2,40 +2,54 @@
  * Created by MartinRiggs on 4/12/2017.
  */
 import org.openqa.selenium.*;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class UserLoginPage {
-    WebDriver driver;
+    private WebDriver driver;
     @FindBy(id = "userid")
-    WebElement email_field;
+    private WebElement email_field;
 
     @FindBy (name = "password")
-    WebElement password_field;
+    private WebElement passwordField;
 
     @FindBy(name = "login")
-    WebElement submit_button;
+    private WebElement submitButton;
 
-    public UserLoginPage()
+    public UserLoginPage(WebDriver driver)
     {
-        driver = new HtmlUnitDriver();
-        PageFactory.initElements(driver, this);
-        driver.get("https://control.goodsync.com");
+        this.driver = driver;
+        PageFactory.initElements(driver, UserLoginPage.class);
+        // TODO check that right page is loaded
+
     }
 
-    public void setEmail_field(String email)
+    public UserLoginPage typeEmail(String email)
     {
         email_field.sendKeys(email);
+        return this;
     }
-    public void setPassword_field(String password)
+    public UserLoginPage typePassword(String password)
     {
-        password_field.sendKeys(password);
+        passwordField.sendKeys(password);
+        return this;
     }
-    public String getPageTitle()
+    public MainPage submitBtn()
     {
-        return driver.getTitle();
+        submitButton.click();
+        return new MainPage();
     }
+    public MainPage loginAs(String email, String password)
+    {
+        typeEmail(email);
+        typePassword(password);
+        return submitBtn();
+
+    }
+
+
+
+
 
 
 
