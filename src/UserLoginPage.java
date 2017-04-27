@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class UserLoginPage {
     private WebDriver driver;
+
     @FindBy(id = "userid")
     private WebElement email_field;
 
@@ -16,12 +17,13 @@ public class UserLoginPage {
     @FindBy(name = "login")
     private WebElement submitButton;
 
-    public UserLoginPage(WebDriver driver)
-    {
+    public UserLoginPage(WebDriver driver) throws Exception {
         this.driver = driver;
         PageFactory.initElements(driver, UserLoginPage.class);
-        // TODO check that right page is loaded
-
+        /* check that right page is loaded */
+        if (!verifyPageTitle()) {
+            throw new Exception("Wrong page is loaded on initiation");
+        }
     }
 
     public UserLoginPage typeEmail(String email)
@@ -37,15 +39,24 @@ public class UserLoginPage {
     public MainPage submitBtn()
     {
         submitButton.click();
-        return new MainPage();
+        return new MainPage(driver);
     }
     public MainPage loginAs(String email, String password)
     {
         typeEmail(email);
         typePassword(password);
         return submitBtn();
-
     }
+    public String getPageTitle()
+    {
+        return driver.getTitle();
+    }
+    public boolean verifyPageTitle()
+    {
+        return getPageTitle().contains("JobServer Enterprise");
+    }
+
+
 
 
 
