@@ -19,7 +19,7 @@ public class UserLoginPage {
 
     public UserLoginPage(WebDriver driver) throws Exception {
         this.driver = driver;
-        PageFactory.initElements(driver, UserLoginPage.class);
+        PageFactory.initElements(driver, this);
         /* check that right page is loaded */
         if (!verifyPageTitle()) {
             throw new Exception("Wrong page is loaded on initiation");
