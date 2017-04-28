@@ -15,7 +15,6 @@ public class LoginPageTest {
     public void setUp() {
         driver = new HtmlUnitDriver();
         driver.get("https://control.goodsync.com");
-        System.out.println("initiation done");
     }
     @After
     public void tearDown()
@@ -28,6 +27,5 @@ public class LoginPageTest {
         UserLoginPage login = new UserLoginPage(driver);
         MainPage mainPage = login.loginAs("viktor.iurkov@yandex.ru", "123456");
 
-
-    }
+    };
 }
