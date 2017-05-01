@@ -5,7 +5,10 @@ import org.junit.Test;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import sun.java2d.cmm.Profile;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +19,16 @@ public class LoginPageTest {
     private WebDriver driver;
     @Before
     public void setUp() {
-        driver = new HtmlUnitDriver();
+        System.setProperty("webdriver.gecko.driver", "C:\\\\Users\\MartinRiggs\\Desktop\\SeleniumLibs\\Gecko\\geckodriver.exe");
+        /*FirefoxProfile fp = new FirefoxProfile();
+        fp.setAcceptUntrustedCertificates(true);
+        fp.setAssumeUntrustedCertificateIssuer(true);
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability(FirefoxDriver.PROFILE, fp);*/
+        FirefoxProfile profile = new FirefoxProfile();
+        profile.setAssumeUntrustedCertificateIssuer(false);
+        profile.setAcceptUntrustedCertificates(true);
+        driver = new FirefoxDriver(profile);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://control.goodsync.com");
     }
