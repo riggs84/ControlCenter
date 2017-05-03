@@ -39,30 +39,30 @@ public class LoginPageTest {
     public void verifyUserCanLoginWithExistentAccount() throws Exception {
         UserLoginPage login = new UserLoginPage(driver);
         MainPage mainPage = login.loginAs("viktor.iurkov@yandex.ru", "123456");
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("btn-logout")));
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.elementToBeClickable(By.id("btn-logout")));
         Assert.assertTrue("Company name is not presented", mainPage.isTextPresented("123456"));
     }
     @Test
     public void shouldNotLoginWithBadPassword() throws Exception
     {
-        UserLoginPage login = new UserLoginPage(driver);
-        login.typeEmail("viktor.iurkov@yandex.ru");
-        login.typePassword("1234567");
-        login.submitBtnWithBadCredentials();
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[2]/div[3]/div/div/div/div/form/div/div")));
+        UserLoginPage login = new UserLoginPage(driver)
+                .typeEmail("viktor.iurkov@yandex.ru")
+                .typePassword("123456")
+                .submitBtnWithBadCredentials();
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[2]/div[3]/div/div/div/div/form/div/div")));
         Assert.assertTrue(driver.getPageSource().contains("Incorrect UserId or Password"));
     }
     @Test
     public void shouldNotLoginWithBadEmail() throws Exception
     {
-        UserLoginPage login = new UserLoginPage(driver);
-        login.typeEmail("some@email.ru");
-        login.typePassword("123456");
-        login.submitBtnWithBadCredentials();
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[2]/div[3]/div/div/div/div/form/div/div")));
+        UserLoginPage login = new UserLoginPage(driver)
+                .typeEmail("some@email.ru")
+                .typePassword("123456")
+                .submitBtnWithBadCredentials();
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[2]/div[3]/div/div/div/div/form/div/div")));
         Assert.assertTrue(driver.getPageSource().contains("Incorrect UserId or Password"));
     }
 }

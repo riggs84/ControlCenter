@@ -15,6 +15,7 @@ public class MainPage {
     {
         this.driver = driver;
         PageFactory.initElements(driver, this);
+
     }
     public boolean isTextPresented(String str)
     {
