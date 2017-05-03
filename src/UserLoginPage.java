@@ -10,20 +10,20 @@ public class UserLoginPage {
     private WebDriver driver;
 
     @FindBy(id = "userid")
-    @CacheLookup
+    //@FindBy(xpath = ".//*[@id='userid']")
     private WebElement emailField;
 
     @FindBy (name = "password")
-    @CacheLookup
+    //@FindBy(xpath = ".//*[@id='frm-login']/fieldset/div/div[2]/input")
     private WebElement passwordField;
 
     @FindBy(name = "login")
-    @CacheLookup
+    //@FindBy(xpath = ".//*[@id='frm-login']/fieldset/div/div[3]/input")
     private WebElement submitButton;
 
     public UserLoginPage(WebDriver driver) throws Exception {
         this.driver = driver;
-        PageFactory.initElements(driver, UserLoginPage.class);
+        PageFactory.initElements(driver, this);
         /*check that right page is loaded */
         if (!verifyPageTitle()) {
             throw new Exception("Wrong page is loaded on initiation");

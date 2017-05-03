@@ -7,6 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import sun.java2d.cmm.Profile;
 
@@ -20,28 +21,23 @@ public class LoginPageTest {
     @Before
     public void setUp() {
         System.setProperty("webdriver.gecko.driver", "C:\\\\Users\\MartinRiggs\\Desktop\\SeleniumLibs\\Gecko\\geckodriver.exe");
-        /*FirefoxProfile fp = new FirefoxProfile();
-        fp.setAcceptUntrustedCertificates(true);
-        fp.setAssumeUntrustedCertificateIssuer(true);
         DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability(FirefoxDriver.PROFILE, fp);*/
-        FirefoxProfile profile = new FirefoxProfile();
-        profile.setAssumeUntrustedCertificateIssuer(false);
-        profile.setAcceptUntrustedCertificates(true);
-        driver = new FirefoxDriver(profile);
+        cap.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+        driver = new FirefoxDriver(cap);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get("https://control.goodsync.com");
+    }
+
+
+    @Test
+    public void verifyUserCanLoginWithExistentAccount() throws Exception {
+        UserLoginPage login = new UserLoginPage(driver);
+        MainPage mainPage = login.loginAs("viktor.iurkov@yandex.ru", "123456");
+        Assert.assertTrue("Company name is not equal", mainPage.isTextPresented("123456"));
     }
     @After
     public void tearDown()
     {
         driver.quit();
     }
-
-    @Test
-    public void verifyUserCanLoginWithExistentAccount() throws Exception {
-        UserLoginPage login = new UserLoginPage(driver);
-        MainPage mainPage = login.loginAs("viktor.iurkov@yandex.ru", "123456");
-        Assert.assertTrue(mainPage.isTextPresented("123456"));
-    };
 }
