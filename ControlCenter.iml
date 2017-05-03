@@ -10,5 +10,7 @@
     <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="library" name="3.4" level="project" />
     <orderEntry type="library" name="htmlunit-driver-2.26-with-dependencies" level="project" />
+    <orderEntry type="library" name="SeleniumLibs" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

@@ -14,7 +14,7 @@ public class MainPage {
     public MainPage(WebDriver driver)
     {
         this.driver = driver;
-        PageFactory.initElements(driver, MainPage.class);
+        PageFactory.initElements(driver, this);
     }
     public boolean isTextPresented(String str)
     {
